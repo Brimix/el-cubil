@@ -1,24 +1,32 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import ProductList from './ProductList';
 import ProductMenu from './ProductMenu';
+import {getProducts} from './utils';
 import './MainContent.css';
 
-import productsData from '../__mock__/products.json';
+import {ProductMap} from './types';
 
 const MainContent: React.FC = () => {
+  const [productMap, setProductMap] = useState<ProductMap>({});
   const [selectedSection, setSelectedSection] = useState("Cuadernos");
 
   const handleSectionChange = (section: string) => {
     setSelectedSection(section);
   };
 
-  const products = productsData[selectedSection as keyof typeof productsData] || [];
+  useEffect(() => {
+    getProducts().then(fetchedMap => {
+      setProductMap(fetchedMap);
+    });
+  }, []);
+
+  const products = productMap[selectedSection as keyof typeof productMap] || [];
 
   return (
     <div className="main-content">
       <div className="content-container">
         <ProductMenu
-          sections={Object.keys(productsData)}
+          sections={Object.keys(productMap)}
           selectedSection={selectedSection}
           onSelectSection={handleSectionChange}/>
         <ProductList products={products} />
