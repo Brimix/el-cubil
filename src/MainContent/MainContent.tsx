@@ -17,7 +17,10 @@ const MainContent: React.FC = () => {
   return (
     <div className="main-content">
       <div className="content-container">
-        <ProductMenu sections={Object.keys(productsData)} onSelectSection={handleSectionChange} />
+        <ProductMenu
+          sections={Object.keys(productsData)}
+          selectedSection={selectedSection}
+          onSelectSection={handleSectionChange}/>
         <ProductList products={products} />
       </div>
     </div>
