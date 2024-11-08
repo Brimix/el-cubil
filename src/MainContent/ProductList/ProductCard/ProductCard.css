@@ -6,24 +6,3 @@
   text-align: center;
   max-width: 200px;
 }
-
-.product-image {
-  width: 100%;
-  height: auto;
-  border-radius: 5px;
-}
-
-.product-name {
-  font-size: 1.2rem;
-  margin: 0.5rem 0;
-}
-
-.product-description {
-  font-size: 0.9rem;
-  color: #666;
-}
-
-.product-price {
-  font-weight: bold;
-  color: #333;
-}

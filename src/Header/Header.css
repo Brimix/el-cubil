@@ -8,10 +8,3 @@
   font-family: Poppins, Inter, sans-serif;
 }
 
-.consult-button {
-  display: flex;
-}
-
-.consult-button:hover {
-  background-color: #20b15a;
-}

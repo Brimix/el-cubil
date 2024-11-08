@@ -4,7 +4,7 @@
   position: relative;
   justify-content: center;
   align-items: flex-start;
-  padding: 2rem;
+  padding: 1rem;
   background-image:
   linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.8)),
   url('../../public/assets/soft-logo.png');
@@ -12,6 +12,7 @@
   background-repeat: no-repeat, repeat;
   background-position: center, center;
   overflow-y: auto;
+  max-height: calc(100vh - 4rem);
 }
 
 .content-container {
