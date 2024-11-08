@@ -1,16 +1,16 @@
 {
   "files": {
     "main.css": "/el-cubil/static/css/main.28d056c0.css",
-    "main.js": "/el-cubil/static/js/main.53facdfc.js",
+    "main.js": "/el-cubil/static/js/main.cee23475.js",
     "static/js/453.94aae363.chunk.js": "/el-cubil/static/js/453.94aae363.chunk.js",
     "static/media/soft-logo.png": "/el-cubil/static/media/soft-logo.caede47a56a565bbb683.png",
     "index.html": "/el-cubil/index.html",
     "main.28d056c0.css.map": "/el-cubil/static/css/main.28d056c0.css.map",
-    "main.53facdfc.js.map": "/el-cubil/static/js/main.53facdfc.js.map",
+    "main.cee23475.js.map": "/el-cubil/static/js/main.cee23475.js.map",
     "453.94aae363.chunk.js.map": "/el-cubil/static/js/453.94aae363.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.28d056c0.css",
-    "static/js/main.53facdfc.js"
+    "static/js/main.cee23475.js"
   ]
 }
