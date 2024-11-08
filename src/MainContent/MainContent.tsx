@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import ProductList from './ProductList';
 import ProductMenu from './ProductMenu';
-import productsData from '../__mock__/products.json';
 import './MainContent.css';
+
+import productsData from '../__mock__/products.json';
 
 const MainContent: React.FC = () => {
   const [selectedSection, setSelectedSection] = useState("Cuadernos");

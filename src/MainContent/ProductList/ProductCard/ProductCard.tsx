@@ -1,14 +1,8 @@
 import React from 'react';
+import {Product} from '../../types';
 import './ProductCard.css';
 
-type Product = {
-  name: string;
-  description: string;
-  price: string;
-  imageUrl: string;
-};
-
-const ProductCard: React.FC<Product> = ({ name, description, price, imageUrl }) => {
+const ProductCard: React.FC<Product> = ({name, description, price, imageUrl}) => {
   return (
     <div className="product-card">
       <img src={imageUrl} alt={name} className="product-image" />

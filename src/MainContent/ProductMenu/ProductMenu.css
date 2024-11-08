@@ -1,21 +1,20 @@
-.menu {
+.product-menu {
   width: 200px;
   padding: 1rem;
   background-color: #f0f0f0;
   border-right: 1px solid #ddd;
-}
 
-.menu ul {
-  list-style-type: none;
-  padding: 0;
-}
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
 
-.menu li {
-  cursor: pointer;
-  padding: 0.5rem 0;
-  font-size: 1rem;
-}
-
-.menu li:hover {
-  background-color: #ddd;
+  li {
+    cursor: pointer;
+    padding: 0.5rem 0;
+    font-size: 1rem;
+  }
+  li:hover {
+    background-color: #ddd;
+  }
 }

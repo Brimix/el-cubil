@@ -6,9 +6,9 @@ type ProductMenuProps = {
   onSelectSection: (section: string) => void;
 };
 
-const ProductMenu: React.FC<ProductMenuProps> = ({ sections, onSelectSection }) => {
+const ProductMenu: React.FC<ProductMenuProps> = ({sections, onSelectSection}) => {
   return (
-    <nav className="menu">
+    <nav className="product-menu">
       <ul>
         {sections.map((section) => (
           <li key={section} onClick={() => onSelectSection(section)}>
