@@ -3,7 +3,7 @@ import {Product} from '../../types';
 import './ProductCard.css';
 
 const ProductCard: React.FC<Product> = ({name, description, price, imageUrl}) => {
-  const imgSrc = useMemo(() => `/assets/${imageUrl}`, [imageUrl]);
+  const imgSrc = useMemo(() => `${process.env.PUBLIC_URL}/assets/${imageUrl}`, [imageUrl]);
 
   return (
     <div className="product-card">

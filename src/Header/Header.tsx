@@ -9,7 +9,7 @@ const whatsappLink = `https://wa.me/${process.env.REACT_APP_WHATSAPP_NUMBER}/?te
 const Header: React.FC = () => {
   return (
     <header className="header flex justify-between items-center p-4 bg-gray-800 text-white">
-      <img src="/assets/logo.png" alt="Logo" className="w-16 h-16 mr-4" />
+      <img src={`${process.env.PUBLIC_URL}/assets/logo.png`} alt="Logo" className="w-16 h-16 mr-4" />
       <h1 className="title text-3xl font-semibold text-center text-white">
         {WEB_TITLE}
       </h1>
