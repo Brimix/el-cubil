@@ -1,5 +1,7 @@
-import {fetchProducts} from '../api';
+import {fetchProducts} from '../api/api';
 import {Product, ProductMap} from './types';
+
+const CLOUD_IMG_PREFIX = 'https://storage.cloud.google.com/elcubil-cloud/product-img/';
 
 export const getProducts = async (): Promise<ProductMap> => {
   const apiProducts = await fetchProducts();
@@ -17,7 +19,7 @@ export const getProducts = async (): Promise<ProductMap> => {
       name: nombre,
       description: descripcion,
       price: precio,
-      imageUrl: url_imagen,
+      imageUrl: `${CLOUD_IMG_PREFIX}${url_imagen}`,
     });
   });
   return categoryMap;
