@@ -1,8 +1,8 @@
 export interface Product {
   name: string;
-  description: string;
+  description?: string;
   price: string;
-  imageUrl: string;
+  imageUrl?: string;
 };
 
 export type ProductMap = Record<string, Product[]>;

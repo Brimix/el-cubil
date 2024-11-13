@@ -1,11 +1,15 @@
 import React, {useEffect, useState} from 'react';
 import ProductList from './ProductList';
 import ProductMenu from './ProductMenu';
-import {ProductMap} from './types';
+import {User} from '../types';
+import {ProductMap, Product} from './types';
 import {getProducts} from './utils';
 import './MainContent.css';
 
-const MainContent: React.FC = () => {
+type MainContentProps = {
+  user: User | null;
+};
+const MainContent: React.FC<MainContentProps> = ({user}) => {
   const [productMap, setProductMap] = useState<ProductMap>({});
   const [selectedSection, setSelectedSection] = useState("Cuadernos");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -22,6 +26,14 @@ const MainContent: React.FC = () => {
   }, []);
 
   const products = productMap[selectedSection as keyof typeof productMap] || [];
+
+  const handleAddProduct = (newProduct: Product) => {
+    const updatedProducts = [...products, newProduct];
+    setProductMap({
+      ...productMap,
+      [selectedSection]: updatedProducts,
+    });
+  };
 
   return (
     <div className="main-content flex flex-col md:flex-row md:space-x-4 overflow-hidden">
@@ -57,7 +69,7 @@ const MainContent: React.FC = () => {
 
       {/* Product List */}
       <div className="flex-grow overflow-y-auto w-full">
-        <ProductList products={products} />
+        <ProductList products={products} onAddProduct={handleAddProduct} user={user}/>
       </div>
     </div>
   );

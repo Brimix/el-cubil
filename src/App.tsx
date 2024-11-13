@@ -19,7 +19,7 @@ const App: React.FC = () => {
   return (
     <div className="App">
       <Header isAdminMode={isAdminMode} setUser={setUser} />
-      <MainContent />
+      <MainContent user={user}/>
       <Footer />
     </div>
   );

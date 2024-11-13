@@ -36,7 +36,7 @@ const ProductModal: React.FC<ProductModalProps> = ({product, onClose}) => {
         </div>
 
         <div className="flex flex-col p-4 sm:w-1/2 h-full overflow-hidden">
-          <ProductDetailsContent imgSrc={product.imageUrl} name={product.name} description={product.description} />
+          <ProductDetailsContent imgSrc={product.imageUrl ?? ''} name={product.name} description={product.description ?? ''} />
           <PriceConsultBlock price={product.price} productName={product.name} />
         </div>
       </div>
