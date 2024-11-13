@@ -20,7 +20,7 @@ const MainContent: React.FC<MainContentProps> = ({user}) => {
   };
 
   useEffect(() => {
-    getProducts().then(fetchedMap => {
+    getProducts().then((fetchedMap) => {
       setProductMap(fetchedMap);
     });
   }, []);
@@ -29,6 +29,16 @@ const MainContent: React.FC<MainContentProps> = ({user}) => {
 
   const handleAddProduct = (newProduct: Product) => {
     const updatedProducts = [...products, newProduct];
+    setProductMap({
+      ...productMap,
+      [selectedSection]: updatedProducts,
+    });
+  };
+
+  const handleDeleteProduct = (productName: string) => {
+    const updatedProducts = products.filter(
+      (product) => product.name !== productName
+    );
     setProductMap({
       ...productMap,
       [selectedSection]: updatedProducts,
@@ -69,7 +79,12 @@ const MainContent: React.FC<MainContentProps> = ({user}) => {
 
       {/* Product List */}
       <div className="flex-grow overflow-y-auto w-full">
-        <ProductList products={products} onAddProduct={handleAddProduct} user={user}/>
+        <ProductList
+          products={products}
+          onAddProduct={handleAddProduct}
+          onDeleteProduct={handleDeleteProduct}
+          user={user}
+        />
       </div>
     </div>
   );

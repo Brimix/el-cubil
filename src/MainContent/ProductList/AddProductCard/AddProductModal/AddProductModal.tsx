@@ -15,9 +15,7 @@ const AddProductModal: React.FC<AddProductModalProps> = ({
     if (productName.trim() !== '') {
       const newProduct: Product = {
         name: productName.trim(),
-        description: '',
         price: '$10',
-        imageUrl: '',
       };
       onAddProduct(newProduct);
       onClose();

@@ -1,13 +1,22 @@
 import React, {useState} from 'react';
+import {FaTrash} from 'react-icons/fa';
+import {User} from '../../../types';
 import {Product} from '../../types';
 import ProductModal from './ProductModal';
 import './ProductCard.css';
 
-const ProductCard: React.FC<Product> = ({
+type ProductCardProps = Product & {
+  onDelete: (productName: string) => void;
+  user: User | null;
+};
+
+const ProductCard: React.FC<ProductCardProps> = ({
   name,
   description = '',
   price,
   imageUrl = '',
+  onDelete,
+  user,
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -19,9 +28,27 @@ const ProductCard: React.FC<Product> = ({
     setIsModalOpen(false);
   };
 
+  const handleDeleteClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    onDelete(name);
+  };
+
   return (
     <>
-      <div onClick={handleCardClick} className="product-card cursor-pointer" >
+      <div
+        onClick={handleCardClick}
+        className="product-card cursor-pointer relative"
+      >
+        {user && (
+          <button
+            onClick={handleDeleteClick}
+            className="delete-button absolute top-2 right-2 text-red-500 hover:text-red-700"
+          >
+            <FaTrash />
+          </button>
+        )}
+        
+
         {imageUrl ? (
           <div className="image-container">
             <img src={imageUrl} alt={name} className="product-image" />
