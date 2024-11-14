@@ -6,6 +6,7 @@ type CatalogContextType = {
   productMap: ProductMap;
   addProduct: (sectionName: string, newProduct: Product) => void;
   deleteProduct: (sectionName: string, productName: string) => void;
+  updateProduct: (sectionName: string, productName: string, newProduct: Product) => void;
   addSection: (sectionName: string, price: string) => void;
   deleteSection: (sectionName: string) => void;
   saveCatalog: (user: User | null) => Promise<void>;

@@ -36,6 +36,7 @@ const ProductList: React.FC<ProductListProps> = ({
           onDelete={handleDeleteProduct}
           price={price}
           isAdminMode={isAdminMode}
+          sectionName={sectionName}
         />
       ))}
       {isAdminMode && <AddProductCard onAddProduct={handleAddProduct} />}

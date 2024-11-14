@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {FaTrash} from 'react-icons/fa';
-import {User, Product} from '../../../types';
+import {Product} from '../../../types';
 import ProductModal from './ProductModal';
 import './ProductCard.css';
 
@@ -8,6 +8,7 @@ type ProductCardProps = Product & {
   onDelete: (productName: string) => void;
   price: string;
   isAdminMode: boolean;
+  sectionName: string;
 };
 
 const ProductCard: React.FC<ProductCardProps> = ({
@@ -17,6 +18,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
   imageUrl = '',
   onDelete,
   isAdminMode,
+  sectionName,
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -67,6 +69,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
           price={price}
           product={{name, description, imageUrl}}
           onClose={closeModal}
+          sectionName={sectionName}
         />
       )}
     </>
