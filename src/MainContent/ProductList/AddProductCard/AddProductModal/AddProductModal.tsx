@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {Product} from '../../../../types';
 
 type AddProductModalProps = {
@@ -10,6 +10,11 @@ const AddProductModal: React.FC<AddProductModalProps> = ({
   onClose,
 }) => {
   const [productName, setProductName] = useState('');
+
+  const inputRef = useRef<HTMLInputElement>(null);
+  useEffect(() => {
+    inputRef.current?.focus();
+  }, []);
 
   const handleSubmit = () => {
     if (productName.trim() !== '') {
@@ -31,12 +36,25 @@ const AddProductModal: React.FC<AddProductModalProps> = ({
     }
   };
 
+  useEffect(() => {
+    const handleEscape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        onClose();
+      }
+    };
+    document.addEventListener('keydown', handleEscape);
+    return () => {
+      document.removeEventListener('keydown', handleEscape);
+    };
+  }, [onClose]);
+
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
       <div className="bg-white rounded-lg shadow-lg p-4 w-80">
         <h2 className="text-xl font-bold mb-4">Nuevo producto</h2>
         <input
           type="text"
+          ref={inputRef}
           value={productName}
           onChange={(e) => setProductName(e.target.value)}
           onKeyUp={handleKeyUp}
