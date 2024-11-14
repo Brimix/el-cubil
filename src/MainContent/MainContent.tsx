@@ -14,7 +14,7 @@ const MainContent: React.FC<MainContentProps> = ({isAdminMode}) => {
   const [selectedSectionName, setSelectedSectionName] = useState<string | null> (null);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  const handleSectionChange = (sectionName: string) => {
+  const handleSectionChange = (sectionName: string | null) => {
     setSelectedSectionName(sectionName);
     setIsMobileMenuOpen(false);
   };

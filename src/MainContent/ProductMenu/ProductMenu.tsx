@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import {FaTrash} from 'react-icons/fa';
 import {useCatalogContext} from '../../CatalogContext';
 import AddSectionModal from './AddSectionModal';
 import './ProductMenu.css';
@@ -6,7 +7,7 @@ import './ProductMenu.css';
 type ProductMenuProps = {
   sections: string[];
   selectedSectionName: string | null;
-  onSelectSection: (section: string) => void;
+  onSelectSection: (section: string | null) => void;
   isAdminMode: boolean;
 };
 
@@ -28,6 +29,7 @@ const ProductMenu: React.FC<ProductMenuProps> = ({
   const handleDeleteSection = (sectionName: string) => {
     const confirmDelete = window.confirm(`¿Estas segura de eliminar la sección "${sectionName}"?`);
     if (!confirmDelete) return;
+    onSelectSection(null);
     deleteSection(sectionName);
   };
 
@@ -38,8 +40,7 @@ const ProductMenu: React.FC<ProductMenuProps> = ({
         {sections.map((sectionName, index) => (
           <li
             key={sectionName}
-            onClick={() => onSelectSection(sectionName)}
-            className={`cursor-pointer px-4 py-2 rounded-md font-semibold text-gray-700
+            className={`relative flex items-center cursor-pointer px-4 py-2 rounded-md font-semibold text-gray-700
               ${selectedSectionName === sectionName ? 
                 'bg-purple-100 text-purple-700' :
                 'hover:bg-purple-100 hover:text-gray-900'} 
@@ -47,7 +48,20 @@ const ProductMenu: React.FC<ProductMenuProps> = ({
               ${index < sections.length - 1 ? 'border-b border-gray-200' : ''}
             `}
           >
-            {sectionName}
+            <span onClick={() => onSelectSection(sectionName)} className="flex-grow">
+              {sectionName}
+            </span>
+            {isAdminMode && (
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleDeleteSection(sectionName);
+                }}
+                className="text-red-500 hover:text-red-700 ml-2 focus:outline-none"
+              >
+                <FaTrash/>
+              </button>
+            )}
           </li>
         ))}
         {isAdminMode && (
