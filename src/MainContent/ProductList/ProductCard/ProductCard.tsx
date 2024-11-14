@@ -7,7 +7,7 @@ import './ProductCard.css';
 type ProductCardProps = Product & {
   onDelete: (productName: string) => void;
   price: string;
-  user: User | null;
+  isAdminMode: boolean;
 };
 
 const ProductCard: React.FC<ProductCardProps> = ({
@@ -16,7 +16,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
   price,
   imageUrl = '',
   onDelete,
-  user,
+  isAdminMode,
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -39,7 +39,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
         onClick={handleCardClick}
         className="product-card cursor-pointer relative"
       >
-        {user && (
+        {isAdminMode && (
           <button
             onClick={handleDeleteClick}
             className="delete-button absolute top-2 right-2 text-red-500 hover:text-red-700"

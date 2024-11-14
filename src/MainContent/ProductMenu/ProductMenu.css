@@ -6,3 +6,30 @@
     transition: background-color 0.5s;
   }
 }
+
+.menu-item {
+  position: relative;
+}
+
+.menu-item .delete-section-button {
+  position: absolute;
+  right: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #e53e3e; /* Tailwind red-600 */
+}
+
+.menu-item .delete-section-button:hover {
+  color: #c53030; /* Tailwind red-700 */
+}
+
+.menu-item.add-section {
+  font-weight: bold;
+  color: #3182ce; /* Tailwind blue-600 */
+  cursor: pointer;
+}
+
+.menu-item.add-section:hover {
+  color: #2b6cb0; /* Tailwind blue-700 */
+}

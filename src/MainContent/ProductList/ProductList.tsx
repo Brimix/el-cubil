@@ -9,7 +9,7 @@ type ProductListProps = {
   onAddProduct: (product: Product) => void;
   onDeleteProduct: (productName: string) => void;
   price: string;
-  user: User | null;
+  isAdminMode: boolean;
 };
 
 const ProductList: React.FC<ProductListProps> = ({
@@ -17,7 +17,7 @@ const ProductList: React.FC<ProductListProps> = ({
   products,
   onAddProduct,
   onDeleteProduct,
-  user,
+  isAdminMode,
 }) => {
   return (
     <div className="product-list grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4 p-4">
@@ -27,10 +27,10 @@ const ProductList: React.FC<ProductListProps> = ({
           {...product}
           onDelete={onDeleteProduct}
           price={price}
-          user={user}
+          isAdminMode={isAdminMode}
         />
       ))}
-      {user && <AddProductCard onAddProduct={onAddProduct} />}
+      {isAdminMode && <AddProductCard onAddProduct={onAddProduct} />}
     </div>
   );
 };
