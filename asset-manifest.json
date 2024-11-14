@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/el-cubil/static/css/main.afa68b0b.css",
-    "main.js": "/el-cubil/static/js/main.78a8b462.js",
-    "static/js/453.94aae363.chunk.js": "/el-cubil/static/js/453.94aae363.chunk.js",
-    "static/media/soft-logo.png": "/el-cubil/static/media/soft-logo.caede47a56a565bbb683.png",
-    "index.html": "/el-cubil/index.html",
-    "main.afa68b0b.css.map": "/el-cubil/static/css/main.afa68b0b.css.map",
-    "main.78a8b462.js.map": "/el-cubil/static/js/main.78a8b462.js.map",
-    "453.94aae363.chunk.js.map": "/el-cubil/static/js/453.94aae363.chunk.js.map"
+    "main.css": "/static/css/main.082b77e3.css",
+    "main.js": "/static/js/main.5238c2af.js",
+    "static/js/453.94aae363.chunk.js": "/static/js/453.94aae363.chunk.js",
+    "static/media/soft-logo.png": "/static/media/soft-logo.caede47a56a565bbb683.png",
+    "index.html": "/index.html",
+    "main.082b77e3.css.map": "/static/css/main.082b77e3.css.map",
+    "main.5238c2af.js.map": "/static/js/main.5238c2af.js.map",
+    "453.94aae363.chunk.js.map": "/static/js/453.94aae363.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.afa68b0b.css",
-    "static/js/main.78a8b462.js"
+    "static/css/main.082b77e3.css",
+    "static/js/main.5238c2af.js"
   ]
 }
