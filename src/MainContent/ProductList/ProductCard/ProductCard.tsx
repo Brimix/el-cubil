@@ -1,12 +1,12 @@
 import React, {useState} from 'react';
 import {FaTrash} from 'react-icons/fa';
-import {User} from '../../../types';
-import {Product} from '../../types';
+import {User, Product} from '../../../types';
 import ProductModal from './ProductModal';
 import './ProductCard.css';
 
 type ProductCardProps = Product & {
   onDelete: (productName: string) => void;
+  price: string;
   user: User | null;
 };
 
@@ -60,12 +60,12 @@ const ProductCard: React.FC<ProductCardProps> = ({
         )}
         <h3 className="product-name">{name}</h3>
         <p className="product-description">{description}</p>
-        <span className="product-price">{price}</span>
       </div>
 
       {isModalOpen && (
         <ProductModal
-          product={{ name, description, price, imageUrl }}
+          price={price}
+          product={{name, description, imageUrl}}
           onClose={closeModal}
         />
       )}

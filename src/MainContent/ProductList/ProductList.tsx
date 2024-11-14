@@ -1,7 +1,6 @@
 import React from 'react';
 import ProductCard from './ProductCard';
-import {User} from '../../types';
-import {Product} from '../types';
+import {User, Product} from '../../types';
 import AddProductCard from './AddProductCard';
 import './ProductList.css';
 
@@ -9,10 +8,12 @@ type ProductListProps = {
   products: Product[];
   onAddProduct: (product: Product) => void;
   onDeleteProduct: (productName: string) => void;
+  price: string;
   user: User | null;
 };
 
 const ProductList: React.FC<ProductListProps> = ({
+  price,
   products,
   onAddProduct,
   onDeleteProduct,
@@ -25,6 +26,7 @@ const ProductList: React.FC<ProductListProps> = ({
           key={index}
           {...product}
           onDelete={onDeleteProduct}
+          price={price}
           user={user}
         />
       ))}

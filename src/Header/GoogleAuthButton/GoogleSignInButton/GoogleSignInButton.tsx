@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 
 type GoogleSignInButtonProps = {
-  onSignIn: (token: string) => void;
+  onSignIn: (credential: string) => void;
 };
 
 const GoogleSignInButton: React.FC<GoogleSignInButtonProps> = ({onSignIn}) => {

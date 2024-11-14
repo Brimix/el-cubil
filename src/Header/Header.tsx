@@ -10,34 +10,49 @@ const whatsappLink = `https://wa.me/${process.env.REACT_APP_WHATSAPP_NUMBER}/?te
 
 type HeaderProps = {
   isAdminMode: boolean;
+  user: User | null;
   setUser: React.Dispatch<React.SetStateAction<User | null>>;
+  onSave: () => void;
 };
 
-const Header: React.FC<HeaderProps> = ({ isAdminMode, setUser }) => {
+const Header: React.FC<HeaderProps> = ({isAdminMode, user, setUser, onSave}) => {
   return (
-    <header className="header flex justify-center md:justify-between items-center p-4 bg-gray-800 text-white">
-      <img
-        src={`${process.env.PUBLIC_URL}/assets/logo.png`}
-        alt="Logo"
-        className="w-12 h-12 mx-auto md:w-16 md:h-16 md:ml-0 md:mr-4"
-      />
-      <h1 className="title text-3xl font-semibold text-center text-white hidden md:flex">
-        {WEB_TITLE}
-      </h1>
+    <header className="header flex justify-between items-center p-4 bg-gray-800 text-white">
+      <div className="flex items-center">
+        <img
+          src={`${process.env.PUBLIC_URL}/assets/logo.png`}
+          alt="Logo"
+          className="w-12 h-12 mr-4"
+        />
+        <h1 className="text-3xl font-semibold">{WEB_TITLE}</h1>
+      </div>
 
-      {isAdminMode ? (
-        <GoogleAuthButton setUser={setUser} />
-      ) : (
-        <a
-          href={whatsappLink}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="consult-button bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded hidden md:flex"
-        >
-          <FaWhatsapp size={24} className="mr-2" />
-          {CONSULT_MSG}
-        </a>
-      )}
+      {/* Action Buttons */}
+      <div className="flex items-center">
+        {isAdminMode ? (
+          <>
+            {user && (
+              <button
+                onClick={onSave}
+                className="bg-green-500 text-white font-bold py-2 px-4 rounded mr-2"
+              >
+                Guardar
+              </button>
+            )}
+            <GoogleAuthButton setUser={setUser} />
+          </>
+        ) : (
+          <a
+            href={`https://wa.me/${process.env.REACT_APP_WHATSAPP_NUMBER}/?text=${WHATSAPP_MSG}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="bg-green-500 text-white font-bold py-2 px-4 rounded flex items-center"
+          >
+            <FaWhatsapp size={24} className="mr-2" />
+            {CONSULT_MSG}
+          </a>
+        )}
+      </div>
     </header>
   );
 };

@@ -1,14 +1,15 @@
 import React, {useEffect, useRef} from 'react';
-import {Product} from '../../../types';
+import {Product} from '../../../../types';
 import PriceConsultBlock from './PriceConsultBlock';
 import ProductDetailsContent from './ProductDetailsContent';
 
 type ProductModalProps = {
+  price: string;
   product: Product;
   onClose: () => void;
 };
 
-const ProductModal: React.FC<ProductModalProps> = ({product, onClose}) => {
+const ProductModal: React.FC<ProductModalProps> = ({price, product, onClose}) => {
   const modalRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -32,12 +33,12 @@ const ProductModal: React.FC<ProductModalProps> = ({product, onClose}) => {
         </button>
 
         <div className="hidden sm:block w-1/2 p-4">
-          <img src={product.imageUrl} alt={product.name} className="w-full h-auto rounded-lg" />
+          <img src={product.imageUrl ?? ''} alt={product.name} className="w-full h-auto rounded-lg" />
         </div>
 
         <div className="flex flex-col p-4 sm:w-1/2 h-full overflow-hidden">
           <ProductDetailsContent imgSrc={product.imageUrl ?? ''} name={product.name} description={product.description ?? ''} />
-          <PriceConsultBlock price={product.price} productName={product.name} />
+          <PriceConsultBlock price={price} productName={product.name} />
         </div>
       </div>
     </div>

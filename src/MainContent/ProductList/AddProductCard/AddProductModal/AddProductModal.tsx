@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Product} from '../../../types';
+import {Product} from '../../../../types';
 
 type AddProductModalProps = {
   onAddProduct: (product: Product) => void;
@@ -15,7 +15,8 @@ const AddProductModal: React.FC<AddProductModalProps> = ({
     if (productName.trim() !== '') {
       const newProduct: Product = {
         name: productName.trim(),
-        price: '$10',
+        description: null,
+        imageUrl: null,
       };
       onAddProduct(newProduct);
       onClose();

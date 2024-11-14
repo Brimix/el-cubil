@@ -1,3 +1,16 @@
+export interface Product {
+  name: string;
+  description: string | null;
+  imageUrl: string | null;
+}
+
+export interface Section {
+  price: string;
+  products: Product[];
+}
+
+export type ProductMap = Record<string, Section>;
+
 export interface User {
   iss: string; // Issuer Identifier
   sub: string; // Subject Identifier

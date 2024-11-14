@@ -12,9 +12,8 @@ const GoogleAuthButton: React.FC<GoogleAuthButtonProps> = ({setUser}) => {
   const [isSignedIn, setIsSignedIn] = useState<boolean>(false);
 
 
-  const handleSignIn = (token: string) => {
-    const user = parseJwt(token);
-    console.log('decoded:', user);
+  const handleSignIn = (credential: string) => {
+    const user = parseJwt(credential);
 
     if (adminWhitelist.includes(user.email)) {
       setUser(user);

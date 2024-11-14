@@ -1,16 +1,16 @@
 import React, {useEffect, useState} from 'react';
 import ProductList from './ProductList';
 import ProductMenu from './ProductMenu';
-import {User} from '../types';
-import {ProductMap, Product} from './types';
+import {User, ProductMap, Product} from '../types';
 import {getProducts} from './utils';
 import './MainContent.css';
 
 type MainContentProps = {
   user: User | null;
+  productMap: ProductMap;
+  setProductMap: React.Dispatch<React.SetStateAction<ProductMap>>;
 };
-const MainContent: React.FC<MainContentProps> = ({user}) => {
-  const [productMap, setProductMap] = useState<ProductMap>({});
+const MainContent: React.FC<MainContentProps> = ({user, productMap, setProductMap}) => {
   const [selectedSection, setSelectedSection] = useState("Cuadernos");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -25,13 +25,15 @@ const MainContent: React.FC<MainContentProps> = ({user}) => {
     });
   }, []);
 
-  const products = productMap[selectedSection as keyof typeof productMap] || [];
+  const products = productMap[selectedSection as keyof typeof productMap]?.products || [];
+  const price = productMap[selectedSection as keyof typeof productMap]?.price || '';
 
   const handleAddProduct = (newProduct: Product) => {
     const updatedProducts = [...products, newProduct];
-    setProductMap({
-      ...productMap,
-      [selectedSection]: updatedProducts,
+    setProductMap((oldProductMap) => {
+      const productMap = {...oldProductMap};
+      productMap[selectedSection].products = updatedProducts;
+      return productMap;
     });
   };
 
@@ -39,9 +41,10 @@ const MainContent: React.FC<MainContentProps> = ({user}) => {
     const updatedProducts = products.filter(
       (product) => product.name !== productName
     );
-    setProductMap({
-      ...productMap,
-      [selectedSection]: updatedProducts,
+    setProductMap((oldProductMap) => {
+      const productMap = {...oldProductMap};
+      productMap[selectedSection].products = updatedProducts;
+      return productMap;
     });
   };
 
@@ -80,6 +83,7 @@ const MainContent: React.FC<MainContentProps> = ({user}) => {
       {/* Product List */}
       <div className="flex-grow overflow-y-auto w-full">
         <ProductList
+          price={price}
           products={products}
           onAddProduct={handleAddProduct}
           onDeleteProduct={handleDeleteProduct}
