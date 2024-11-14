@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {User} from '../../types';
 import {adminWhitelist} from './constants';
 import {parseJwt} from './utils';

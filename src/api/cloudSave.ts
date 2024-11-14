@@ -1,4 +1,4 @@
-export const BUCKET_NAME = 'elcubil-cloud';
+import {BUCKET_PATH, UPLINK_URL} from './constants';
 
 export const saveToCloud = (content: unknown, name: string) => {
   const tokenClient = window.google.accounts.oauth2.initTokenClient({
@@ -7,7 +7,7 @@ export const saveToCloud = (content: unknown, name: string) => {
     callback: async (tokenResponse: any) => {
       const accessToken = tokenResponse.access_token;
       const contentJson = JSON.stringify(content);
-      const uploadUrl = `https://storage.googleapis.com/upload/storage/v1/b/${BUCKET_NAME}/o?uploadType=media&name=${encodeURIComponent(name)}`;
+      const uploadUrl = `${UPLINK_URL}${BUCKET_PATH}o?uploadType=media&name=${encodeURIComponent(name)}`;
 
       const response = await fetch(uploadUrl, {
         method: 'POST',
