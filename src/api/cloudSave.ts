@@ -4,7 +4,13 @@ export const saveToCloud = (content: unknown, name: string) => {
   const tokenClient = window.google.accounts.oauth2.initTokenClient({
     client_id: process.env.REACT_APP_GOOGLE_CLIENT_ID!,
     scope: 'https://www.googleapis.com/auth/devstorage.read_write',
-    callback: async (tokenResponse: any) => {
+    callback: async (tokenResponse: google.accounts.oauth2.TokenResponse) => {
+      if (tokenResponse.error) {
+        console.error('Token Response Error:', tokenResponse.error);
+        alert('Failed to obtain access token.');
+        return;
+      }
+
       const accessToken = tokenResponse.access_token;
       const contentJson = JSON.stringify(content);
       const uploadUrl = `${UPLINK_URL}${BUCKET_PATH}o?uploadType=media&name=${encodeURIComponent(name)}`;

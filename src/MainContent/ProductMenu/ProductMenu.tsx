@@ -1,12 +1,12 @@
-import React from 'react';
+import React, {useState} from 'react';
+import {useCatalogContext} from '../../CatalogContext';
+import AddSectionModal from './AddSectionModal';
 import './ProductMenu.css';
 
 type ProductMenuProps = {
   sections: string[];
   selectedSectionName: string | null;
   onSelectSection: (section: string) => void;
-  onAddSection: () => void;
-  onDeleteSection: (section: string) => void;
   isAdminMode: boolean;
 };
 
@@ -14,10 +14,25 @@ const ProductMenu: React.FC<ProductMenuProps> = ({
   sections,
   selectedSectionName,
   onSelectSection,
-  onAddSection,
   isAdminMode,
 }) => {
+  const {addSection, deleteSection} = useCatalogContext();
+  
+  const [isAddSectionModalOpen, setIsAddSectionModalOpen] = useState(false);
+
+  const handleAddSection = (sectionName: string, price: string) => {
+    addSection(sectionName, price);
+    onSelectSection(sectionName);
+  };
+
+  const handleDeleteSection = (sectionName: string) => {
+    const confirmDelete = window.confirm(`¿Estas segura de eliminar la sección "${sectionName}"?`);
+    if (!confirmDelete) return;
+    deleteSection(sectionName);
+  };
+
   return (
+    <>
     <nav className="product-menu bg-purple-50 rounded-lg shadow-md w-56 p-4 space-y-1">
       <ul className="space-y-1">
         {sections.map((sectionName, index) => (
@@ -36,12 +51,18 @@ const ProductMenu: React.FC<ProductMenuProps> = ({
           </li>
         ))}
         {isAdminMode && (
-          <li className="menu-item add-section" onClick={onAddSection}>
+          <li className="menu-item add-section" onClick={() => setIsAddSectionModalOpen(true)}>
             + Agregar
           </li>
         )}
       </ul>
     </nav>
+    {isAddSectionModalOpen && (
+      <AddSectionModal
+        onAddSection={handleAddSection}
+        onClose={() => setIsAddSectionModalOpen(false)} />
+    )}
+    </>
   );
 };
 

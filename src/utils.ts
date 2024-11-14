@@ -1,5 +1,5 @@
-import {fetchProducts} from '../api/cloudFetch';
-import {ProductMap} from '../types';
+import {fetchProducts} from './api/cloudFetch';
+import {ProductMap} from './types';
 
 export const getProducts = async (): Promise<ProductMap> => {
   try {
