@@ -64,9 +64,15 @@ const ProductMenu: React.FC<ProductMenuProps> = ({
             )}
           </li>
         ))}
-        {isAdminMode && (
+        {isAdminMode ? (
           <li className="menu-item add-section" onClick={() => setIsAddSectionModalOpen(true)}>
             + Agregar
+          </li>
+        ) : (
+          <li className="menu-item font-semibold text-purple-900 text-sm">
+            <a href={`https://instagram.com/${process.env.REACT_APP_INSTAGRAM_USERNAME}`} target="_blank" rel="noopener noreferrer" >
+              Más en nuestro Instagram!
+            </a>
           </li>
         )}
       </ul>
