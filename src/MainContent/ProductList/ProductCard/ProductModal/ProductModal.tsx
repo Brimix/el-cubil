@@ -29,10 +29,21 @@ const ProductModal: React.FC<ProductModalProps> = ({sectionName, price, product,
     };
   }, [onClose]);
 
-  const onUpdateImages = useCallback((images: string[]) => {
-    const newProduct: Product = {...product, images};
+  const onUpdateImages = useCallback((newImages: string[]) => {
+    const newProduct: Product = {...product, images: newImages};
     updateProduct(sectionName, product.name, newProduct);
   }, [product]);
+
+  const onUpdateName = (newName: string) => {
+    const updatedProduct = {...product, name: newName};
+    updateProduct(sectionName, product.name, updatedProduct);
+  };
+
+  const onUpdateDescription = (newDescription: string) => {
+    const updatedProduct = { ...product, description: newDescription };
+    updateProduct(sectionName, product.name, updatedProduct);
+  };
+
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
@@ -44,7 +55,13 @@ const ProductModal: React.FC<ProductModalProps> = ({sectionName, price, product,
         <ImageContainer images={images} sectionName={sectionName} productName={name} onUpdateImages={onUpdateImages}/>
 
         <div className="flex flex-col p-4 sm:w-1/2 h-full overflow-hidden">
-          <ProductDetailsContent imgSrc={images[0] ?? ''} name={name} description={description ?? ''} />
+          <ProductDetailsContent
+            imgSrc={images[0] ?? ''}
+            name={name}
+            description={description ?? ''}
+            sectionName={sectionName}
+            onUpdateName={onUpdateName}
+            onUpdateDescription={onUpdateDescription} />
           <PriceConsultBlock price={price} productName={name} sectionName={sectionName}/>
         </div>
       </div>

@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {FaTrash} from 'react-icons/fa';
 import {useCatalogContext} from '../../CatalogContext';
+import {useUserContext} from '../../UserContext';
 import AddSectionModal from './AddSectionModal';
 import './ProductMenu.css';
 
@@ -8,15 +9,14 @@ type ProductMenuProps = {
   sections: string[];
   selectedSectionName: string | null;
   onSelectSection: (section: string | null) => void;
-  isAdminMode: boolean;
 };
 
 const ProductMenu: React.FC<ProductMenuProps> = ({
   sections,
   selectedSectionName,
   onSelectSection,
-  isAdminMode,
 }) => {
+  const {isAdmin} = useUserContext();
   const {addSection, deleteSection} = useCatalogContext();
   
   const [isAddSectionModalOpen, setIsAddSectionModalOpen] = useState(false);
@@ -51,7 +51,7 @@ const ProductMenu: React.FC<ProductMenuProps> = ({
             <span onClick={() => onSelectSection(sectionName)} className="flex-grow">
               {sectionName}
             </span>
-            {isAdminMode && (
+            {isAdmin && (
               <button
                 onClick={(e) => {
                   e.stopPropagation();
@@ -64,7 +64,7 @@ const ProductMenu: React.FC<ProductMenuProps> = ({
             )}
           </li>
         ))}
-        {isAdminMode ? (
+        {isAdmin ? (
           <li className="menu-item add-section" onClick={() => setIsAddSectionModalOpen(true)}>
             + Agregar
           </li>

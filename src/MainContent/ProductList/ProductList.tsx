@@ -1,5 +1,6 @@
 import React, {useCallback} from 'react';
 import {useCatalogContext} from '../../CatalogContext';
+import {useUserContext} from '../../UserContext';
 import {Product, Section} from '../../types';
 import AddProductCard from './AddProductCard';
 import ProductCard from './ProductCard';
@@ -9,14 +10,10 @@ import './ProductList.css';
 type ProductListProps = {
   sectionName: string;
   section: Section;
-  isAdminMode: boolean;
 };
 
-const ProductList: React.FC<ProductListProps> = ({
-  section,
-  sectionName,
-  isAdminMode,
-}) => {
+const ProductList: React.FC<ProductListProps> = ({section, sectionName}) => {
+  const {isAdmin} = useUserContext();
   const {addProduct, deleteProduct} = useCatalogContext();
   const {price, products} = section;
 
@@ -28,7 +25,7 @@ const ProductList: React.FC<ProductListProps> = ({
     deleteProduct(sectionName, productName);
   }, [deleteProduct, sectionName]);
 
-  const allProducts = isAdminMode
+  const allProducts = isAdmin
     ? products
     : [...products, getCustomProduct(sectionName)];
 
@@ -40,11 +37,10 @@ const ProductList: React.FC<ProductListProps> = ({
           {...product}
           onDelete={handleDeleteProduct}
           price={price}
-          isAdminMode={isAdminMode}
           sectionName={sectionName}
         />
       ))}
-      {isAdminMode && <AddProductCard onAddProduct={handleAddProduct} />}
+      {isAdmin && <AddProductCard onAddProduct={handleAddProduct} />}
     </div>
   );
 };

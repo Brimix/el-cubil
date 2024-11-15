@@ -1,13 +1,13 @@
 import React, {useState} from 'react';
 import {FaTrash} from 'react-icons/fa';
 import {Product} from '../../../types';
+import {useUserContext} from '../../../UserContext';
 import ProductModal from './ProductModal';
 import './ProductCard.css';
 
 type ProductCardProps = Product & {
   onDelete: (productName: string) => void;
   price: string;
-  isAdminMode: boolean;
   sectionName: string;
 };
 
@@ -17,9 +17,9 @@ const ProductCard: React.FC<ProductCardProps> = ({
   price,
   images,
   onDelete,
-  isAdminMode,
   sectionName,
 }) => {
+  const {isAdmin} = useUserContext();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleCardClick = () => {
@@ -41,7 +41,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
         onClick={handleCardClick}
         className="product-card cursor-pointer relative"
       >
-        {isAdminMode && (
+        {isAdmin && (
           <button
             onClick={handleDeleteClick}
             className="delete-button absolute top-2 right-2 text-red-500 hover:text-red-700"

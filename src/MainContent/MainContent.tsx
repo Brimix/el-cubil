@@ -2,14 +2,11 @@ import React, {useCallback, useEffect, useState} from 'react';
 import {useCatalogContext} from '../CatalogContext';
 import ProductList from './ProductList';
 import ProductMenu from './ProductMenu';
+import SectionPrice from './SectionPrice';
 import './MainContent.css';
 
-type MainContentProps = {
-  isAdminMode: boolean;
-};
-
-const MainContent: React.FC<MainContentProps> = ({isAdminMode}) => {
-  const {productMap, updateSection} = useCatalogContext();
+const MainContent: React.FC = () => {
+  const {productMap} = useCatalogContext();
 
   const [selectedSectionName, setSelectedSectionName] = useState<string | null>(null);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -26,12 +23,6 @@ const MainContent: React.FC<MainContentProps> = ({isAdminMode}) => {
       setSelectedSectionName(initialSection);
     }
   }, [productMap, selectedSectionName]);
-
-  const handlePriceChange = useCallback((price: string) => {
-    if (selectedSectionName) {
-      updateSection(selectedSectionName, {price});
-    }
-  }, [selectedSectionName]);
 
   return (
     <div className="main-content flex flex-col md:flex-row md:space-x-4 overflow-hidden">
@@ -51,7 +42,6 @@ const MainContent: React.FC<MainContentProps> = ({isAdminMode}) => {
               sections={Object.keys(productMap)}
               selectedSectionName={selectedSectionName}
               onSelectSection={setSelectedSectionName}
-              isAdminMode={isAdminMode}
             />
           </div>
         )}
@@ -63,7 +53,6 @@ const MainContent: React.FC<MainContentProps> = ({isAdminMode}) => {
           sections={Object.keys(productMap)}
           selectedSectionName={selectedSectionName}
           onSelectSection={handleSectionChange}
-          isAdminMode={isAdminMode}
         />
       </div>
 
@@ -71,26 +60,14 @@ const MainContent: React.FC<MainContentProps> = ({isAdminMode}) => {
       {selectedSectionName && (
         <div className="flex-grow overflow-y-auto w-full">
           {selectedSectionPrice && (
-            <div className={`section-price text-center text-xl font-semibold text-purple-800 my-4 ${
-                isAdminMode ? '' : 'bg-purple-50 bg-opacity-90 p-2 rounded-md shadow-md rounded-xl'}`}>
-              {isAdminMode ? (
-                <input
-                  type="text"
-                  value={selectedSectionPrice}
-                  onChange={(e) => handlePriceChange(e.target.value)}
-                  className="text-center border-b-2 border-gray-300 focus:outline-none focus:border-blue-500"
-                />
-              ) : (
-                <div className="mx-4">
-                  Precio: {selectedSectionPrice}
-                </div>
-              )}
-            </div>
+            <SectionPrice
+              sectionName={selectedSectionName}
+              price={selectedSectionPrice}
+            />
           )}
           <ProductList
             sectionName={selectedSectionName}
             section={productMap[selectedSectionName]}
-            isAdminMode={isAdminMode}
           />
         </div>
       )}

@@ -5,6 +5,7 @@ import Footer from './Footer';
 import MainContent from './MainContent';
 import {User} from './types';
 import {CatalogContext} from './CatalogContext';
+import {UserContext} from './UserContext';
 import useCatalog from './useCatalog';
 import './App.css';
 
@@ -23,13 +24,18 @@ const App: React.FC = () => {
   const handleSave = () => catalog.saveCatalog(user);
 
   return (
-    <CatalogContext.Provider value={catalog}>
-      <div className="App">
-        <Header onSave={handleSave} isAdminMode={isAdminMode} user={user} setUser={setUser} />
-        <MainContent isAdminMode={user !== null}/> 
-        <Footer />
-      </div>
-    </CatalogContext.Provider>
+    <UserContext.Provider value={{
+      user,
+      isAdmin: user !== null,
+    }}>
+      <CatalogContext.Provider value={catalog}>
+        <div className="App">
+          <Header onSave={handleSave} isAdminMode={isAdminMode} user={user} setUser={setUser} />
+          <MainContent/> 
+          <Footer />
+        </div>
+      </CatalogContext.Provider>
+    </UserContext.Provider>
   );
 };
 
