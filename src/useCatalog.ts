@@ -1,5 +1,5 @@
 import {useState, useEffect, useCallback} from 'react';
-import {Product, ProductMap, User} from './types';
+import {Product, ProductMap, Section, User} from './types';
 import {getProducts} from './utils';
 import {saveToCloud} from './api/cloudSave';
 
@@ -7,9 +7,10 @@ type UseCatalogReturnType = {
   productMap: ProductMap;
   addProduct: (sectionName: string, newProduct: Product) => void;
   deleteProduct: (sectionName: string, productName: string) => void;
-  updateProduct: (sectionName: string, productName: string, newProduct: Product) => void;
+  updateProduct: (sectionName: string, productName: string, newProduct: Partial<Product>) => void;
   addSection: (sectionName: string, price: string) => void;
   deleteSection: (sectionName: string) => void;
+  updateSection: (sectionName: string, newSection: Partial<Section>) => void;
   saveCatalog: (user: User | null) => Promise<void>;
 };
 
@@ -52,16 +53,17 @@ const useCatalog = (): UseCatalogReturnType => {
     });
   };
 
-  const updateProduct = (sectionName: string, productName: string, product: Product) => {
+  const updateProduct = (sectionName: string, productName: string, newProperties: Partial<Product>) => {
     setProductMap((prevProductMap) => {
       const targetProductId = prevProductMap[sectionName].products.findIndex(p => p.name === productName);
       if (targetProductId === -1) {
         console.error('Product not found');
+        alert('Failed to update since product is not found');
         return prevProductMap;
       }
       
       const updatedProducts = [...prevProductMap[sectionName].products];
-      updatedProducts[targetProductId] = product;
+      updatedProducts[targetProductId] = {... updatedProducts[targetProductId], ...newProperties};
 
       const updatedSection = {
         ...prevProductMap[sectionName],
@@ -98,6 +100,26 @@ const useCatalog = (): UseCatalogReturnType => {
     });
   };
 
+  const updateSection = (sectionName: string, newProperties: Partial<Section>) => {
+    setProductMap((prevProductMap) => {
+      if (!prevProductMap[sectionName]) {
+        console.error('Section not found');
+        alert('Failed to update since section is not found');
+        return prevProductMap;
+      }
+
+      const updatedSection = {
+        ...prevProductMap[sectionName],
+        ...newProperties,
+      };
+
+      return {
+        ...prevProductMap,
+        [sectionName]: updatedSection,
+      };
+    });
+  };
+
   const saveCatalog = useCallback(
     async (user: User | null) => {
       if (!user) {
@@ -122,6 +144,7 @@ const useCatalog = (): UseCatalogReturnType => {
     updateProduct,
     addSection,
     deleteSection,
+    updateSection,
     saveCatalog,
   };
 };

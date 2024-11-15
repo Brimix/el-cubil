@@ -1,14 +1,14 @@
-import React, {createContext, useContext} from 'react';
-import {ProductMap, Product, User} from './types';
-import useCatalog from './useCatalog';
+import {createContext, useContext} from 'react';
+import {ProductMap, Product, User, Section} from './types';
 
 type CatalogContextType = {
   productMap: ProductMap;
   addProduct: (sectionName: string, newProduct: Product) => void;
   deleteProduct: (sectionName: string, productName: string) => void;
-  updateProduct: (sectionName: string, productName: string, newProduct: Product) => void;
+  updateProduct: (sectionName: string, productName: string, newProduct: Partial<Product>) => void;
   addSection: (sectionName: string, price: string) => void;
   deleteSection: (sectionName: string) => void;
+  updateSection: (sectionName: string, newSection: Partial<Section>) => void;
   saveCatalog: (user: User | null) => Promise<void>;
 };
 
