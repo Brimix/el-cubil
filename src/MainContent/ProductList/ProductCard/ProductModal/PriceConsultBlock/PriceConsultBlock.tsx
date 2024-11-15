@@ -4,10 +4,12 @@ import {PRODUCT_MSG_WRAPPER_LEFT, PRODUCT_MSG_WRAPPER_RIGHT} from '../constants'
 type PriceConsultBlockProps = {
   price: string;
   productName: string;
+  sectionName: string;
 };
 
-const PriceConsultBlock: React.FC<PriceConsultBlockProps> = ({price, productName}) => {
-  const whatsappLink = `https://wa.me/${process.env.REACT_APP_WHATSAPP_NUMBER}/?text=${PRODUCT_MSG_WRAPPER_LEFT}${productName}${PRODUCT_MSG_WRAPPER_RIGHT}`;
+const PriceConsultBlock: React.FC<PriceConsultBlockProps> = ({price, productName, sectionName}) => {
+  const title = `${sectionName} ${productName}`;
+  const whatsappLink = `https://wa.me/${process.env.REACT_APP_WHATSAPP_NUMBER}/?text=${PRODUCT_MSG_WRAPPER_LEFT}${title}${PRODUCT_MSG_WRAPPER_RIGHT}`;
 
   return (
     <div className="sm:mt-auto flex items-center justify-between sm:justify-start w-full mt-4">

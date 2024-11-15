@@ -45,7 +45,7 @@ const ProductModal: React.FC<ProductModalProps> = ({sectionName, price, product,
 
         <div className="flex flex-col p-4 sm:w-1/2 h-full overflow-hidden">
           <ProductDetailsContent imgSrc={images[0] ?? ''} name={name} description={description ?? ''} />
-          <PriceConsultBlock price={price} productName={name} />
+          <PriceConsultBlock price={price} productName={name} sectionName={sectionName}/>
         </div>
       </div>
     </div>

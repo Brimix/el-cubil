@@ -1,8 +1,9 @@
-import React, { useCallback } from 'react';
+import React, {useCallback} from 'react';
 import {useCatalogContext} from '../../CatalogContext';
 import {Product, Section} from '../../types';
 import AddProductCard from './AddProductCard';
 import ProductCard from './ProductCard';
+import {getCustomProduct} from './utils';
 import './ProductList.css';
 
 type ProductListProps = {
@@ -21,15 +22,19 @@ const ProductList: React.FC<ProductListProps> = ({
 
   const handleAddProduct = useCallback((newProduct: Product) => {
     addProduct(sectionName, newProduct);
-  }, [sectionName]);
+  }, [addProduct, sectionName]);
 
   const handleDeleteProduct = useCallback((productName: string) => {
     deleteProduct(sectionName, productName);
-  }, [sectionName]);
+  }, [deleteProduct, sectionName]);
+
+  const allProducts = isAdminMode
+    ? products
+    : [...products, getCustomProduct(sectionName)];
 
   return (
     <div className="product-list grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4 p-4">
-      {products.map((product, index) => (
+      {allProducts.map((product, index) => (
         <ProductCard
           key={index}
           {...product}
