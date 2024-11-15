@@ -1,4 +1,5 @@
 import React, {useRef, useState} from 'react';
+import {useUserContext} from '../../../../../UserContext';
 import {saveImageToCloud} from '../../../../../api/cloudSave';
 import {generateImageName} from './utils';
 
@@ -10,6 +11,7 @@ type ImageContainerProps = {
 };
 
 const ImageContainer: React.FC<ImageContainerProps> = ({images, sectionName, productName, onUpdateImages}) => {
+  const {isAdmin} = useUserContext();
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   const [dragOver, setDragOver] = useState(false);
@@ -117,13 +119,15 @@ const ImageContainer: React.FC<ImageContainerProps> = ({images, sectionName, pro
           <p>Arrastra y suelta una imagen aquí o haz clic para seleccionar</p>
         </div>
       )}
-      <input
-        type="file"
-        ref={fileInputRef}
-        style={{display: 'none'}}
-        accept="image/*"
-        onChange={handleFileChange}
-      />
+      {isAdmin && (
+        <input
+          type="file"
+          ref={fileInputRef}
+          style={{display: 'none'}}
+          accept="image/*"
+          onChange={handleFileChange}
+        />
+      )}
     </div>
   );
 };
