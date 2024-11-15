@@ -13,7 +13,7 @@ type ProductModalProps = {
 };
 
 const ProductModal: React.FC<ProductModalProps> = ({sectionName, price, product, onClose}) => {
-  const {name, description, imageUrl} = product;
+  const {name, description, images} = product;
   const {updateProduct} = useCatalogContext();
   const modalRef = useRef<HTMLDivElement>(null);
 
@@ -29,8 +29,8 @@ const ProductModal: React.FC<ProductModalProps> = ({sectionName, price, product,
     };
   }, [onClose]);
 
-  const onUpdateImage = useCallback((img: string) => {
-    const newProduct: Product = {...product, imageUrl: img};
+  const onUpdateImages = useCallback((images: string[]) => {
+    const newProduct: Product = {...product, images};
     updateProduct(sectionName, product.name, newProduct);
   }, [product]);
 
@@ -41,10 +41,10 @@ const ProductModal: React.FC<ProductModalProps> = ({sectionName, price, product,
         <button onClick={onClose} className="absolute top-2 right-2 w-8 h-8 flex items-center justify-center bg-gray-200 hover:bg-gray-300 rounded-full text-gray-700 hover:text-gray-900 font-bold text-xl">
           &times;
         </button>
-        <ImageContainer imageUrl={imageUrl} sectionName={sectionName} productName={name} onUpdateImage={onUpdateImage}/>
+        <ImageContainer images={images} sectionName={sectionName} productName={name} onUpdateImages={onUpdateImages}/>
 
         <div className="flex flex-col p-4 sm:w-1/2 h-full overflow-hidden">
-          <ProductDetailsContent imgSrc={imageUrl ?? ''} name={name} description={description ?? ''} />
+          <ProductDetailsContent imgSrc={images[0] ?? ''} name={name} description={description ?? ''} />
           <PriceConsultBlock price={price} productName={name} />
         </div>
       </div>

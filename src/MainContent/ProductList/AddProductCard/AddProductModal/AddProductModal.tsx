@@ -21,7 +21,7 @@ const AddProductModal: React.FC<AddProductModalProps> = ({
       const newProduct: Product = {
         name: productName.trim(),
         description: null,
-        imageUrl: null,
+        images: [],
       };
       onAddProduct(newProduct);
       onClose();

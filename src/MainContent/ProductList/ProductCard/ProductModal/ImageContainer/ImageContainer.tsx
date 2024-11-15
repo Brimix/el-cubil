@@ -3,14 +3,15 @@ import {saveImageToCloud} from '../../../../../api/cloudSave';
 import {generateImageName} from './utils';
 
 type ImageContainerProps = {
-  imageUrl: string | null;
+  images: string[];
   sectionName: string;
   productName: string;
-  onUpdateImage: (img: string) => void;
+  onUpdateImages: (imgs: string[]) => void;
 };
 
-const ImageContainer: React.FC<ImageContainerProps> = ({imageUrl, sectionName, productName, onUpdateImage}) => {
-  const [currentImageUrl, setCurrentImageUrl] = useState(imageUrl);
+const ImageContainer: React.FC<ImageContainerProps> = ({images, sectionName, productName, onUpdateImages}) => {
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
   const [dragOver, setDragOver] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -51,28 +52,70 @@ const ImageContainer: React.FC<ImageContainerProps> = ({imageUrl, sectionName, p
   // Handle file upload
   const handleFileUpload = async (file: File) => {
     try {
-      const imageName = generateImageName(file.name, sectionName, productName);
+      const imageName = generateImageName(file.name, sectionName, productName, images.length);
       const uploadedImageUrl = await saveImageToCloud(file, imageName);
-      setCurrentImageUrl(uploadedImageUrl);
-      onUpdateImage(uploadedImageUrl);
+
+      const updatedImages = [...images, uploadedImageUrl];
+      onUpdateImages(updatedImages);
+      setCurrentImageIndex(updatedImages.length - 1);
     } catch (error) {
       console.error('Error uploading image:', error);
       alert('Failed to upload image. Please try again.');
     }
   };
 
+  const handlePrevImage = () => {
+    setCurrentImageIndex((prevIndex) =>
+      prevIndex === 0 ? images.length - 1 : prevIndex - 1
+    );
+  };
+  
+  const handleNextImage = () => {
+    setCurrentImageIndex((prevIndex) =>
+      prevIndex === images.length - 1 ? 0 : prevIndex + 1
+    );
+  };
+  
   return (
     <div
-      className={`${dragOver ? 'drag-over' : ''} hidden sm:block w-1/2 p-4`}
+      className={`${dragOver ? 'drag-over' : ''} hidden sm:block w-1/2 p-4 relative`}
       onDragOver={handleDragOver}
       onDragLeave={handleDragLeave}
       onDrop={handleDrop}
-      onClick={handleImageClick}
     >
-      {currentImageUrl ? (
-        <img src={currentImageUrl} alt={productName} className="w-full h-auto rounded-lg" />
+      {images.length > 0 ? (
+        <div className="relative">
+          <img
+            src={images[currentImageIndex]}
+            alt={productName}
+            className="w-full h-auto rounded-lg cursor-pointer"
+            onClick={handleImageClick}
+          />
+          {/* Navigation Buttons */}
+          {images.length > 1 && (
+            <>
+              <button
+                onClick={handlePrevImage}
+                className="absolute top-1/2 left-0 transform -translate-y-1/2 bg-gray-700 bg-opacity-50 hover:bg-opacity-75 text-white p-2 rounded-r-md"
+              >
+                &#8249;
+              </button>
+              <button
+                onClick={handleNextImage}
+                className="absolute top-1/2 right-0 transform -translate-y-1/2 bg-gray-700 bg-opacity-50 hover:bg-opacity-75 text-white p-2 rounded-l-md"
+              >
+                &#8250;
+              </button>
+            </>
+          )}
+        </div>
       ) : (
-        <p>Drag & Drop an image here or click to select</p>
+        <div
+          className="flex items-center justify-center w-full h-full border border-dashed border-gray-400 rounded-lg cursor-pointer"
+          onClick={handleImageClick}
+        >
+          <p>Arrastra y suelta una imagen aquí o haz clic para seleccionar</p>
+        </div>
       )}
       <input
         type="file"
@@ -82,7 +125,7 @@ const ImageContainer: React.FC<ImageContainerProps> = ({imageUrl, sectionName, p
         onChange={handleFileChange}
       />
     </div>
-  )
+  );
 };
 
 export default ImageContainer;

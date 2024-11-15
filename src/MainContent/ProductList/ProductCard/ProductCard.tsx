@@ -15,7 +15,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
   name,
   description = '',
   price,
-  imageUrl = '',
+  images,
   onDelete,
   isAdminMode,
   sectionName,
@@ -51,9 +51,9 @@ const ProductCard: React.FC<ProductCardProps> = ({
         )}
         
 
-        {imageUrl ? (
+        {images.length > 0 ? (
           <div className="image-container">
-            <img src={imageUrl} alt={name} className="product-image" />
+            <img src={images[0]} alt={name} className="product-image" />
           </div>
         ) : (
           <div className="image-container bg-gray-200 flex items-center justify-center">
@@ -67,7 +67,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
       {isModalOpen && (
         <ProductModal
           price={price}
-          product={{name, description, imageUrl}}
+          product={{name, description, images}}
           onClose={closeModal}
           sectionName={sectionName}
         />
