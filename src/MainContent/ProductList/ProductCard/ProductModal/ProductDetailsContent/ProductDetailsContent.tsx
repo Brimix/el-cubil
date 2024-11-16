@@ -62,7 +62,7 @@ const ProductDetailsContent: React.FC<ProductDetailsContentProps> = ({
           className="text-gray-600 mb-4 w-full h-32 resize-none border border-gray-300 rounded-md p-2 focus:outline-none focus:border-blue-500"
         />
       ) : (
-        <p className="text-gray-600 mb-4">{description}</p>
+        <p className="text-gray-600 mb-4 whitespace-pre-wrap">{description}</p>
       )}
     </div>
   );
